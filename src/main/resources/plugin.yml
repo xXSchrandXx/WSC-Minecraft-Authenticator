@@ -1,0 +1,16 @@
+name: ${project.artifactId}-bukkit
+main: ${project.groupId}.bukkit.MinecraftAuthenticatorBukkit
+version: ${project.version}
+author: xXSchrandXx
+description: WSC-Minecraft-Authenticator
+api-version: 1.13
+load: POSTWORLD
+softdepend: []
+
+commands:
+  login:
+    description: Command to log in.
+  logout:
+    description: Command to log out.
+  wscauthenticator:
+    description: Command for WSC-Minecraft-Authenticator.

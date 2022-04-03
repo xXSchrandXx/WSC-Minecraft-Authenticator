@@ -1,0 +1,10 @@
+name: ${project.artifactId}-bungee
+main: ${project.groupId}.bungee.MinecraftAuthenticatorBungee
+version: ${project.version}
+author: xXSchrandXx
+description: WSC-Minecraft-Authenticator
+softdepend: []
+
+commands:
+  wscauthenticatorbungee:
+    description: Command for WSC-Minecraft-Authenticator.
