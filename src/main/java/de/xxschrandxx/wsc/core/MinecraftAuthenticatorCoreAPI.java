@@ -3,6 +3,7 @@ package de.xxschrandxx.wsc.core;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
@@ -26,7 +27,7 @@ public class MinecraftAuthenticatorCoreAPI {
         }
     }
 
-    public boolean checkPassword(UUID uuid, String password) throws IOException, Exception {
+    public boolean checkPassword(UUID uuid, String password) throws SocketTimeoutException, IOException, Exception {
         URLConnection c = this.url.openConnection();
         if (!(c instanceof HttpsURLConnection)) {
             throw new Exception("opened connection is not an HttpsURLConnection.");
