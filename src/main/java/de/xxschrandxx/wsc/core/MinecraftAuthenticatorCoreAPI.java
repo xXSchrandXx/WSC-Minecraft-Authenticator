@@ -18,10 +18,12 @@ import com.google.gson.Gson;
 public class MinecraftAuthenticatorCoreAPI {
 
     private final URL url;
+    private final String key;
     private final Gson gson = new Gson();
  
-    public MinecraftAuthenticatorCoreAPI(String url) throws MalformedURLException {
+    public MinecraftAuthenticatorCoreAPI(String url, String key) throws MalformedURLException {
         this.url = new URL(url);
+        this.key = key;
         if (!this.url.getProtocol().equals("https")) {
             throw new MalformedURLException("Only https is supportet. Given protocol: \"" + this.url.getProtocol() + "\"");
         }
@@ -41,7 +43,7 @@ public class MinecraftAuthenticatorCoreAPI {
         "Content-Disposition: form-data; name=\"key\"" + "\r\n" +
         "Content-Type: text/plain; charset=UTF-8" + "\r\n" +
         "\r\n" +
-        "MySuperSecretKey" + "\r\n" +
+        this.key + "\r\n" +
         "--" + boundary + "\r\n" +
         "Content-Disposition: form-data; name=\"uuid\"" + "\r\n" +
         "Content-Type: text/plain; charset=UTF-8" + "\r\n" +

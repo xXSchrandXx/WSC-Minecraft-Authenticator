@@ -56,7 +56,10 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin {
 
         // set api
         try {
-            this.api = new MinecraftAuthenticatorBukkitAPI(getConfiguration().getString(Configuration.URL));
+            this.api = new MinecraftAuthenticatorBukkitAPI(
+                getConfiguration().getString(Configuration.URL),
+                getConfiguration().getString(Configuration.Key)
+                );
         }
         catch (MalformedURLException e) {
             e.printStackTrace();
@@ -97,6 +100,9 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin {
 
         // URL
         if (checkConfiguration(Configuration.URL, Configuration.defaults.URL))
+            error = true;
+        // Key
+        if (checkConfiguration(Configuration.Key, Configuration.defaults.Key))
             error = true;
 
         // LoginCommand

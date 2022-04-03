@@ -7,6 +7,8 @@ public class MinecraftAuthenticatorVars {
     public static final class Configuration {
         // url
         public static final String URL = "url";
+        // key
+        public static final String Key = "key";
         // logincommand
         // LoginCommandOnlyPlayers
         public static final String LoginCommandOnlyPlayers = "locale.login.OnlyPlayers";
@@ -48,6 +50,8 @@ public class MinecraftAuthenticatorVars {
         public static final class defaults {
             // url
             public static final String URL = "https://example.com/index.php?minecraft-password-check/";
+            // key
+            public static final String Key = "MySuperSecretKey";
             // logincommand
             // LoginCommandOnlyPlayers
             public static final String LoginCommandOnlyPlayers = "You have to be a player.";
