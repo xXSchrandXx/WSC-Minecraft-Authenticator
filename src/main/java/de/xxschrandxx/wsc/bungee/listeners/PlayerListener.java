@@ -75,7 +75,7 @@ public class PlayerListener implements Listener {
       if (!event.isCommand() || !event.isProxyCommand()) {
         return;
       }
-      String command = event.getMessage().split(" ")[0].replaceFirst("/", "");
+      String command = event.getMessage().split(" ")[0];
       if (this.mab.getConfiguration().getStringList(Configuration.AllowedCommands).contains(command)) {
           return;
       }
