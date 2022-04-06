@@ -46,7 +46,16 @@ public class MinecraftAuthenticatorVars {
         public static final String TeleportUnauthedLocation = "teleport.unauthed.Location";
         // TeleportAuthenticated
         public static final String TeleportAuthedEnabled = "teleport.authed.Enabled";
+        // server
         public static final String TeleportAuthedLocation = "teleport.authed.Location";
+        // AuthenticationServerEnabled
+        public static final String AuthenticationServerEnabled = "server.authentication.Enabled";
+        // AuthenticationServerName
+        public static final String AuthenticationServerName = "server.authentication.Name";
+        // LobbyServerEnabled
+        public static final String LobbyServerEnabled = "server.lobby.Enabled";
+        // LobbyServerList
+        public static final String LobbyServerList = "server.lobby.List";
         public static final class defaults {
             // url
             public static final String URL = "https://example.com/index.php?minecraft-password-check/";
@@ -88,6 +97,15 @@ public class MinecraftAuthenticatorVars {
             public static final boolean TeleportUnauthedEnabled = false;
             // TeleportAuthenticated
             public static final boolean TeleportAuthedEnabled = false;
+            // server
+            // AuthenticationServerEnabled
+            public static final boolean AuthenticationServerEnabled = false;
+            // AuthenticationServerName
+            public static final String AuthenticationServerName = "lobby";
+            // LobbyServerEnabled
+            public static final boolean LobbyServerEnabled = false;
+            // LobbyServerList
+            public static final List<String> LobbyServerList = Arrays.asList("lobby");
         }
     }
 }
