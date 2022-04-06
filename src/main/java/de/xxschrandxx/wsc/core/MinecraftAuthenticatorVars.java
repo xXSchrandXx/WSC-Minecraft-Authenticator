@@ -5,6 +5,7 @@ import java.util.List;
 
 public class MinecraftAuthenticatorVars {
     public static final class Configuration {
+        // universal
         // url
         public static final String URL = "url";
         // key
@@ -40,13 +41,15 @@ public class MinecraftAuthenticatorVars {
         public static final String DenyCommandSendLocale = "locale.DenyCommandSend";
         // AllowMovement
         public static final String AllowMovement = "protection.AllowMovement";
-        // teleportation
+        // AllowServerSwitch
+        public static final String AllowServerSwitch = "protection.AllowServerSwitch";
+        // teleportation bukkit only
         // TeleportUnauthed
         public static final String TeleportUnauthedEnabled = "teleport.unauthed.Enabled";
         public static final String TeleportUnauthedLocation = "teleport.unauthed.Location";
         // TeleportAuthenticated
         public static final String TeleportAuthedEnabled = "teleport.authed.Enabled";
-        // server
+        // server bungee only
         public static final String TeleportAuthedLocation = "teleport.authed.Location";
         // AuthenticationServerEnabled
         public static final String AuthenticationServerEnabled = "server.authentication.Enabled";
@@ -56,7 +59,10 @@ public class MinecraftAuthenticatorVars {
         public static final String LobbyServerEnabled = "server.lobby.Enabled";
         // LobbyServerList
         public static final String LobbyServerList = "server.lobby.List";
+
+        // Default values
         public static final class defaults {
+            // universal
             // url
             public static final String URL = "https://example.com/index.php?minecraft-password-check/";
             // key
@@ -92,12 +98,14 @@ public class MinecraftAuthenticatorVars {
             public static final String DenyCommandSendLocale = "&cYou are not allowed to use commands.";
             // AllowMovement
             public static final boolean AllowMovement = false;
-            // teleportation
+            // AllowServerSwitch
+            public static final boolean AllowServerSwitch = false;
+            // teleportation bukkit only
             // TeleportUnauthed
             public static final boolean TeleportUnauthedEnabled = false;
             // TeleportAuthenticated
             public static final boolean TeleportAuthedEnabled = false;
-            // server
+            // server bungee only
             // AuthenticationServerEnabled
             public static final boolean AuthenticationServerEnabled = false;
             // AuthenticationServerName

@@ -73,9 +73,9 @@ public class MinecraftAuthenticatorBungee extends Plugin {
         getProxy().getPluginManager().registerCommand(getInstance(), new LogoutCommand());
 
         // register listener
-         getProxy().getPluginManager().registerListener(getInstance(), new AuthenticationListener());
-        // TODO listener
-
+        getProxy().getPluginManager().registerListener(getInstance(), new MABListener());
+        getProxy().getPluginManager().registerListener(getInstance(), new AuthenticationListener());
+        getProxy().getPluginManager().registerListener(getInstance(), new PlayerListener());
     }
     // end of plugin part
 
@@ -152,6 +152,24 @@ public class MinecraftAuthenticatorBungee extends Plugin {
 
         // Protection
         // TODO
+        // AllowServerSwitch
+        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AllowServerSwitch, MinecraftAuthenticatorVars.Configuration.defaults.AllowServerSwitch))
+            error = true;
+        // AllowMessageSend
+        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AllowMessageSend, MinecraftAuthenticatorVars.Configuration.defaults.AllowMessageSend))
+            error = true;
+        // AllowMessageSendLocale
+        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AllowMessageSendLocale, MinecraftAuthenticatorVars.Configuration.defaults.AllowMessageSendLocale))
+            error = true;
+        // AllowedCommands
+        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AllowedCommands, MinecraftAuthenticatorVars.Configuration.defaults.AllowedCommands))
+            error = true;
+        // DenyCommandSendLocale
+        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.DenyCommandSendLocale, MinecraftAuthenticatorVars.Configuration.defaults.DenyCommandSendLocale))
+            error = true;
+        // AllowMessageReceive
+        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AllowMessageReceive, MinecraftAuthenticatorVars.Configuration.defaults.AllowMessageReceive))
+            error = true;
 
         // Server
         // AuthenticationServerEnabled
