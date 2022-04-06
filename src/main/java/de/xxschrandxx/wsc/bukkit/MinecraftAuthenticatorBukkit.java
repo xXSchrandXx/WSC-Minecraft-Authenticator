@@ -71,6 +71,7 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin {
         getCommand("logout").setExecutor(new LogoutCommand());
 
         // register listener
+        getServer().getPluginManager().registerEvents(new MABListener(), getInstance());
         getServer().getPluginManager().registerEvents(new AuthenticationListener(), getInstance());
         getServer().getPluginManager().registerEvents(new BlockListener(), getInstance());
         getServer().getPluginManager().registerEvents(new PlayerListener(), getInstance());
