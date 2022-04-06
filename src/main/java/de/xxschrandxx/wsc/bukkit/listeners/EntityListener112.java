@@ -2,27 +2,22 @@ package de.xxschrandxx.wsc.bukkit.listeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityAirChangeEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 
 import de.xxschrandxx.wsc.bukkit.MinecraftAuthenticatorBukkit;
 
-/**
- * Listener for 1.11 and upper
- */
-public class PlayerListener111 implements Listener {
+public class EntityListener112 implements Listener {
     private final MinecraftAuthenticatorBukkit mab;
-    public PlayerListener111() {
+    public EntityListener112() {
         this.mab = MinecraftAuthenticatorBukkit.getInstance();
     }
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
-    public void onPlayerAirChange(EntityAirChangeEvent event) {
+    @EventHandler
+    public void onPickupItem(EntityPickupItemEvent event) {
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
-        Player player = (Player) event.getEntity();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.isAuthenticated((Player) event.getEntity())) {
             return;
         }
         event.setCancelled(true);

@@ -82,7 +82,12 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin {
             Class.forName("org.bukkit.event.entity.EntityAirChangeEvent");
             getServer().getPluginManager().registerEvents(new PlayerListener111(), getInstance());
         } catch (ClassNotFoundException e) {}
-
+        try {
+            Class.forName("org.bukkit.event.entity.EntityPickupItemEvent");
+            getServer().getPluginManager().registerEvents(new EntityListener112(), getInstance());
+        } catch (ClassNotFoundException e) {
+            getServer().getPluginManager().registerEvents(new PlayerListener17(), getInstance());
+        }
     }
     // end of plugin part
 

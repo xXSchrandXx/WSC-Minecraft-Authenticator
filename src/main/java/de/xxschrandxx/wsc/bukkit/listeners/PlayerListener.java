@@ -22,12 +22,14 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
 
 import de.xxschrandxx.wsc.bukkit.MinecraftAuthenticatorBukkit;
 import de.xxschrandxx.wsc.core.MinecraftAuthenticatorVars.Configuration;
 
+/**
+ * Default listener
+ */
 public class PlayerListener implements Listener {
 
     private final MinecraftAuthenticatorBukkit mab;
@@ -183,15 +185,6 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onSignChange(SignChangeEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
-            return;
-        }
-        event.setCancelled(true);
-    }
-
-    @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
-    @Deprecated
-    public void onPlayerPickupItem(PlayerPickupItemEvent event) {
         if (this.mab.isAuthenticated(event.getPlayer())) {
             return;
         }

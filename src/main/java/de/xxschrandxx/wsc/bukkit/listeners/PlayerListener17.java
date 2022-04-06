@@ -3,20 +3,20 @@ package de.xxschrandxx.wsc.bukkit.listeners;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerSwapHandItemsEvent;
-
-import de.xxschrandxx.wsc.bukkit.MinecraftAuthenticatorBukkit;
+import org.bukkit.event.player.PlayerPickupItemEvent;
 
 /**
- * Listener for 1.9 and upper
+ * Listener for pre 1.12
  */
-public class PlayerListener19 implements Listener {
+import de.xxschrandxx.wsc.bukkit.MinecraftAuthenticatorBukkit;
+
+public class PlayerListener17 implements Listener {
     private final MinecraftAuthenticatorBukkit mab;
-    public PlayerListener19() {
+    public PlayerListener17() {
         this.mab = MinecraftAuthenticatorBukkit.getInstance();
     }
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
-    public void onPlayerSwapHandItems(PlayerSwapHandItemsEvent event) {
+    public void onPlayerPickupItem(PlayerPickupItemEvent event) {
         if (this.mab.isAuthenticated(event.getPlayer())) {
             return;
         }
