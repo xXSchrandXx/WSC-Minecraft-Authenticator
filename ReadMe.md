@@ -15,8 +15,38 @@ Quicklinks: [General](#general) | [API](#api) | [Links](#links) | [License](http
 ## Configration
 ### BungeeCord
 ```YAML
+# URL to your minecraft-password-check action.
 url: https://example.com/index.php?minecraft-password-check/
+# Key set in Minecraft-Linker configuration
 key: MySuperSecretKey
+# Protection configuration
+protection:
+  # Weahter a player can switch the server
+  AllowServerSwitch: false
+  # Weather a player can send messages
+  AllowMessageSend: false
+  # List of allowed commands
+  AllowedCommands:
+  - /login
+  # Weather a player can read the messages of other players
+  AllowMessageReceive: false
+# Serverswitching configuration
+server:
+  # Forcing player on authenticationserver 
+  authentication:
+    # Weather this should be enabled
+    Enabled: false
+    # Name of the server to force the player on
+    Name: lobby
+  # Forcing player on servers after authentication
+  lobby:
+    # Weather this should be enabled
+    Enabled: false
+    # List of servers to force the player on
+    # Will try server by server
+    List:
+    - lobby
+# Messages configuration
 locale:
   login:
     OnlyPlayers: You have to be a player.
@@ -30,31 +60,53 @@ locale:
     Success: '&aSuccessfully logged out.'
   AllowMessageSend: '&cYou are not allowed to send messages.'
   DenyCommandSend: '&cYou are not allowed to use commands.'
-protection:
-  AllowServerSwitch: false
-  AllowMessageSend: false
-  AllowedCommands:
-  - /login
-  AllowMessageReceive: false
-server:
-  authentication:
-    Enabled: false
-    Name: lobby
-  lobby:
-    Enabled: false
-    List:
-    - lobby
 ```
 ### Bukkit/Spigot
 ```YAML
+# URL to your minecraft-password-check action.
 url: https://example.com/index.php?minecraft-password-check/
+# Key set in Minecraft-Linker configuration
 key: MySuperSecretKey
+# Protection configuration
 protection:
+  # Weather a player can read the messages of other players
   AllowMessageReceive: false
+  # Weather a player can send messages
   AllowMessageSend: false
+  # List of allowed commands
   AllowedCommands:
   - /login
+  # Weather the player can move
   AllowMovement: false
+# Teleportation configuration
+teleport:
+  # Teleport unauthenticated location
+  unauthed:
+    # Weather this should be enabled
+    Enabled: false
+    # The location to teleport to
+    Location:
+      ==: org.bukkit.Location
+      world: world
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      pitch: 0.0
+      yaw: 0.0
+  # Teleport authenticated location
+  authed:
+    # Weather this should be enabled
+    Enabled: false
+    # The location to teleport to
+    Location:
+      ==: org.bukkit.Location
+      world: world
+      x: 0.0
+      y: 0.0
+      z: 0.0
+      pitch: 0.0
+      yaw: 0.0
+# Messages configuration
 locale:
   login:
     OnlyPlayers: You have to be a player.
@@ -68,27 +120,6 @@ locale:
     Success: '&aSuccessfully logged out.'
   AllowMessageSend: '&cYou are not allowed to send messages.'
   DenyCommandSend: '&cYou are not allowed to use commands.'
-teleport:
-  unauthed:
-    Enabled: false
-    Location:
-      ==: org.bukkit.Location
-      world: world
-      x: -1496.0
-      y: 64.0
-      z: 936.0
-      pitch: 0.0
-      yaw: 0.0
-  authed:
-    Enabled: false
-    Location:
-      ==: org.bukkit.Location
-      world: world
-      x: -1496.0
-      y: 64.0
-      z: 936.0
-      pitch: 0.0
-      yaw: 0.0
 ```
 # API
 ## Password check
