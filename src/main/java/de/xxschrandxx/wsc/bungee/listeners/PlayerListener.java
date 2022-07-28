@@ -34,7 +34,7 @@ public class PlayerListener implements Listener {
       if (event.getReason() == Reason.LOBBY_FALLBACK) {
         return;
       }
-      if (this.mab.isAuthenticated(event.getPlayer())) {
+      if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
         return;
       }
       event.setCancelled(true);
@@ -55,7 +55,7 @@ public class PlayerListener implements Listener {
           return;
       }
       ProxiedPlayer player = (ProxiedPlayer) event.getSender();
-      if (this.mab.isAuthenticated(player)) {
+      if (this.mab.getAPI().isAuthenticated(player)) {
           return;
       }
       player.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',
@@ -80,7 +80,7 @@ public class PlayerListener implements Listener {
           return;
       }
       ProxiedPlayer player = (ProxiedPlayer) event.getSender();
-      if (this.mab.isAuthenticated(player)) {
+      if (this.mab.getAPI().isAuthenticated(player)) {
           return;
       }
       player.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',
@@ -103,7 +103,7 @@ public class PlayerListener implements Listener {
       if (this.mab.getConfiguration().getBoolean(Configuration.AllowMessageReceive)) {
           return;
       }
-      if (this.mab.isAuthenticated((ProxiedPlayer) event.getReceiver()))
+      if (this.mab.getAPI().isAuthenticated((ProxiedPlayer) event.getReceiver()))
       event.setCancelled(true);
     }
 }

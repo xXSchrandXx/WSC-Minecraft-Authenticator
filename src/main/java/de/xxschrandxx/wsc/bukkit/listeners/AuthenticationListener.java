@@ -32,7 +32,7 @@ public class AuthenticationListener implements Listener {
         if (!TeleportUnauthedLocation.isWorldLoaded()) {
             return;
         }
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.getPlayer().teleport(TeleportUnauthedLocation, TeleportCause.PLUGIN);

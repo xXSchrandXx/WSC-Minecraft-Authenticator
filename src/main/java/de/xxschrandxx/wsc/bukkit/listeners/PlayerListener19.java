@@ -17,7 +17,7 @@ public class PlayerListener19 implements Listener {
     }
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerSwapHandItems(PlayerSwapHandItemsEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);

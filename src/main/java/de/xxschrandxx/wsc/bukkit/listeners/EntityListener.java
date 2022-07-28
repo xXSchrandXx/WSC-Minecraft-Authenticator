@@ -31,7 +31,7 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.getEntity().setFireTicks(0);
@@ -45,7 +45,7 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getDamager();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setCancelled(true);
@@ -57,7 +57,7 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getTarget();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setTarget(null);
@@ -70,7 +70,7 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setCancelled(true);
@@ -82,7 +82,7 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setAmount(0);
@@ -95,7 +95,7 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setCancelled(true);
@@ -109,7 +109,7 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) shooter;
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setCancelled(true);
@@ -121,7 +121,7 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setCancelled(true);

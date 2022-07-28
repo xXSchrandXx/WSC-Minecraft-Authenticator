@@ -22,7 +22,7 @@ public class LoginCommand implements CommandExecutor {
             return true;
         }
         Player player = (Player) sender;
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                 this.mab.getConfiguration().getString(Configuration.LoginCommandAlreadyIn)
             ));
@@ -43,7 +43,10 @@ public class LoginCommand implements CommandExecutor {
             e.printStackTrace();
         }
         if (valid) {
-            this.mab.setAuthenticated(player.getUniqueId(), true);
+            this.mab.getAPI().setAuthenticated(player, true);
+            if (this.mab.getConfiguration().getBoolean(Configuration.SessionsEnabled)) {
+                this.mab.getAPI().removeSession(player);
+            }
             player.sendMessage(ChatColor.translateAlternateColorCodes('&',
                 this.mab.getConfiguration().getString(Configuration.LoginCommandSuccess)
             ));

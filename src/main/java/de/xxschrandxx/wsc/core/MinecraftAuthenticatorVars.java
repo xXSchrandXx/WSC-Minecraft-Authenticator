@@ -10,6 +10,11 @@ public class MinecraftAuthenticatorVars {
         public static final String URL = "url";
         // key
         public static final String Key = "key";
+        // sessions
+        // SessionsEnabled
+        public static final String SessionsEnabled = "sessions.Enabled";
+        // SessionLength
+        public static final String SessionLength = "sessions.Length";
         // logincommand
         // LoginCommandOnlyPlayers
         public static final String LoginCommandOnlyPlayers = "locale.login.OnlyPlayers";
@@ -28,6 +33,9 @@ public class MinecraftAuthenticatorVars {
         public static final String LogoutCommandAlreadyOut = "locale.logout.AlreadyOut";
         // LogoutCommandSuccess
         public static final String LogoutCommandSuccess = "locale.logout.Success";
+        // session
+        // LoginViaSession
+        public static final String LoginViaSession = "locale.login.ViaSession";
         // protection
         // AllowMessageReceive
         public static final String AllowMessageReceive = "protection.AllowMessageReceive";
@@ -67,6 +75,11 @@ public class MinecraftAuthenticatorVars {
             public static final String URL = "https://example.com/index.php?minecraft-password-check/";
             // key
             public static final String Key = "MySuperSecretKey";
+            // sessions
+            // SessionsEnabled
+            public static final Boolean SessionsEnabled = false;
+            // SessionLength
+            public static final Integer SessionLength = 300000; // 5 Minutes
             // logincommand
             // LoginCommandOnlyPlayers
             public static final String LoginCommandOnlyPlayers = "You have to be a player.";
@@ -85,6 +98,9 @@ public class MinecraftAuthenticatorVars {
             public static final String LogoutCommandAlreadyOut = "&cYou are not logged in.";
             // LogoutCommandSuccess
             public static final String LogoutCommandSuccess = "&aSuccessfully logged out.";
+            // session
+            // LoginViaSession
+            public static final String LoginViaSession = "&aSuccessfully logged in via session";
             // protection
             // AllowMessageReceive
             public static final boolean AllowMessageReceive = false;

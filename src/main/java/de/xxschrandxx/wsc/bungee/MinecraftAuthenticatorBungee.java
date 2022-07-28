@@ -3,15 +3,12 @@ package de.xxschrandxx.wsc.bungee;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 import de.xxschrandxx.wsc.bungee.api.MinecraftAuthenticatorBungeeAPI;
 import de.xxschrandxx.wsc.bungee.commands.*;
 import de.xxschrandxx.wsc.bungee.listeners.*;
 import de.xxschrandxx.wsc.core.MinecraftAuthenticatorVars;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
@@ -30,21 +27,6 @@ public class MinecraftAuthenticatorBungee extends Plugin {
     }
     // end of api part
 
-    // start of authentication part
-    private ConcurrentHashMap<UUID, Boolean> authenticated = new ConcurrentHashMap<UUID, Boolean>();
-
-    public Boolean isAuthenticated(ProxiedPlayer player) {
-        return this.isAuthenticated(player.getUniqueId());
-    }
-    public Boolean isAuthenticated(UUID uuid) {
-        return this.authenticated.getOrDefault(uuid, false);
-    }
-
-    public Boolean setAuthenticated(UUID uuid, Boolean authenticated) {
-        return this.authenticated.put(uuid, authenticated);
-    }
-    // end of authentication part
-
     // start of plugin part
     @Override
     public void onEnable() {
@@ -60,7 +42,10 @@ public class MinecraftAuthenticatorBungee extends Plugin {
         try {
             this.api = new MinecraftAuthenticatorBungeeAPI(
                 getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.URL),
-                getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.Key)
+                getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.Key),
+                getConfiguration().getBoolean(MinecraftAuthenticatorVars.Configuration.SessionsEnabled),
+                getConfiguration().getLong(MinecraftAuthenticatorVars.Configuration.SessionLength),
+                getLogger()
                 );
         }
         catch (MalformedURLException e) {
@@ -122,6 +107,14 @@ public class MinecraftAuthenticatorBungee extends Plugin {
         if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.Key, MinecraftAuthenticatorVars.Configuration.defaults.Key))
             error = true;
 
+        // Sessions
+        // SessionsEnabled
+        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.SessionsEnabled, MinecraftAuthenticatorVars.Configuration.defaults.SessionsEnabled))
+            error = true;
+        // SessionLength
+        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.SessionLength, MinecraftAuthenticatorVars.Configuration.defaults.SessionLength))
+            error = true;
+
         // LoginCommand
         // LoginCommandOnlyPlayers
         if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LoginCommandOnlyPlayers, MinecraftAuthenticatorVars.Configuration.defaults.LoginCommandOnlyPlayers))
@@ -148,6 +141,10 @@ public class MinecraftAuthenticatorBungee extends Plugin {
             error = true;
         // LogoutCommandSuccess
         if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LogoutCommandSuccess, MinecraftAuthenticatorVars.Configuration.defaults.LogoutCommandSuccess))
+            error = true;
+
+        // LoginViaSession
+        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LoginViaSession, MinecraftAuthenticatorVars.Configuration.defaults.LoginViaSession))
             error = true;
 
         // Protection

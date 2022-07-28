@@ -1,13 +1,10 @@
 package de.xxschrandxx.wsc.bukkit;
 
 import java.net.MalformedURLException;
-import java.util.UUID;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.xxschrandxx.wsc.bukkit.api.MinecraftAuthenticatorBukkitAPI;
@@ -28,21 +25,6 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin {
     }
     // end of api part
 
-    // start of authentication part
-    private ConcurrentHashMap<UUID, Boolean> authenticated = new ConcurrentHashMap<UUID, Boolean>();
-
-    public Boolean isAuthenticated(Player player) {
-        return this.isAuthenticated(player.getUniqueId());
-    }
-    public Boolean isAuthenticated(UUID uuid) {
-        return this.authenticated.getOrDefault(uuid, false);
-    }
-
-    public Boolean setAuthenticated(UUID uuid, Boolean authenticated) {
-        return this.authenticated.put(uuid, authenticated);
-    }
-    // end of authentication part
-
     // start of plugin part
     @Override
     public void onEnable() {
@@ -58,7 +40,10 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin {
         try {
             this.api = new MinecraftAuthenticatorBukkitAPI(
                 getConfiguration().getString(Configuration.URL),
-                getConfiguration().getString(Configuration.Key)
+                getConfiguration().getString(Configuration.Key),
+                getConfiguration().getBoolean(Configuration.SessionsEnabled),
+                getConfiguration().getLong(Configuration.SessionLength),
+                getLogger()
                 );
         }
         catch (MalformedURLException e) {
@@ -111,6 +96,14 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin {
         if (checkConfiguration(Configuration.Key, Configuration.defaults.Key))
             error = true;
 
+        // Sessions
+        // SessionsEnabled
+        if (checkConfiguration(Configuration.SessionsEnabled, Configuration.defaults.SessionsEnabled))
+            error = true;
+        // SessionLength
+        if (checkConfiguration(Configuration.SessionLength, Configuration.defaults.SessionLength))
+            error = true;
+
         // LoginCommand
         // LoginCommandOnlyPlayers
         if (checkConfiguration(Configuration.LoginCommandOnlyPlayers, Configuration.defaults.LoginCommandOnlyPlayers))
@@ -137,6 +130,10 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin {
             error = true;
         // LogoutCommandSuccess
         if (checkConfiguration(Configuration.LogoutCommandSuccess, Configuration.defaults.LogoutCommandSuccess))
+            error = true;
+
+        // LoginViaSession
+        if (checkConfiguration(Configuration.LoginViaSession, Configuration.defaults.LoginViaSession))
             error = true;
 
         // Protection

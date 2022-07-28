@@ -17,7 +17,7 @@ public class PlayerListener17 implements Listener {
     }
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerPickupItem(PlayerPickupItemEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);

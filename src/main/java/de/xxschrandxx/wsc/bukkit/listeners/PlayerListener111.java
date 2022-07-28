@@ -22,7 +22,7 @@ public class PlayerListener111 implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setCancelled(true);

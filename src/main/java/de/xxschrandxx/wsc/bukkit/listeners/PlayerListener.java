@@ -44,7 +44,7 @@ public class PlayerListener implements Listener {
             return;
         }
         for (Player player : event.getRecipients()) {
-            if (this.mab.isAuthenticated(player)) {
+            if (this.mab.getAPI().isAuthenticated(player)) {
                 return;
             }
             event.getRecipients().remove(player);
@@ -63,7 +63,7 @@ public class PlayerListener implements Listener {
 
         Player player = event.getPlayer();
 
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setCancelled(true);
@@ -79,7 +79,7 @@ public class PlayerListener implements Listener {
             return;
         }
 
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -107,7 +107,7 @@ public class PlayerListener implements Listener {
         }
 
         Player player = event.getPlayer();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
 
@@ -117,7 +117,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -125,7 +125,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -133,7 +133,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -145,7 +145,7 @@ public class PlayerListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setCancelled(true);
@@ -153,7 +153,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerShear(PlayerShearEntityEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -161,7 +161,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerFish(PlayerFishEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -169,7 +169,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerBedEnter(PlayerBedEnterEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -177,7 +177,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerEditBook(PlayerEditBookEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -185,7 +185,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onSignChange(SignChangeEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -193,7 +193,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerDropItem(PlayerDropItemEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -201,7 +201,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerHeldItem(PlayerItemHeldEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -209,7 +209,7 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerConsumeItem(PlayerItemConsumeEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -222,7 +222,7 @@ public class PlayerListener implements Listener {
         }
         final Player player = (Player) event.getPlayer();
 
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
 
@@ -236,7 +236,7 @@ public class PlayerListener implements Listener {
             return;
         }
         Player player = (Player) event.getWhoClicked();
-        if (this.mab.isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(player)) {
             return;
         }
         event.setCancelled(true);

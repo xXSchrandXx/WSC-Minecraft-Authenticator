@@ -23,13 +23,16 @@ public class LogoutCommand extends Command {
             return;
         }
         ProxiedPlayer player = (ProxiedPlayer) sender;
-        if (!this.mab.isAuthenticated(player)) {
+        if (!this.mab.getAPI().isAuthenticated(player)) {
             player.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',
                 this.mab.getConfiguration().getString(Configuration.LogoutCommandAlreadyOut)
             )));
             return;
         }
-        this.mab.setAuthenticated(player.getUniqueId(), false);
+        this.mab.getAPI().setAuthenticated(player, false);
+        if (this.mab.getConfiguration().getBoolean(Configuration.SessionsEnabled)) {
+            this.mab.getAPI().removeSession(player);
+        }
         this.mab.getProxy().getPluginManager().callEvent(new LogoutEvent(player));
         player.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',
             this.mab.getConfiguration().getString(Configuration.LogoutCommandSuccess)

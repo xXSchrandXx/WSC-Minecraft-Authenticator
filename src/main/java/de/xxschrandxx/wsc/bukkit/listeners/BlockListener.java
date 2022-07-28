@@ -17,7 +17,7 @@ public class BlockListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);
@@ -25,7 +25,7 @@ public class BlockListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (this.mab.isAuthenticated(event.getPlayer())) {
+        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
             return;
         }
         event.setCancelled(true);

@@ -17,7 +17,7 @@ public class EntityListener112 implements Listener {
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
-        if (this.mab.isAuthenticated((Player) event.getEntity())) {
+        if (this.mab.getAPI().isAuthenticated((Player) event.getEntity())) {
             return;
         }
         event.setCancelled(true);
