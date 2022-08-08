@@ -1,5 +1,5 @@
 name: ${project.artifactId}-bukkit
-main: ${project.groupId}.bukkit.MinecraftAuthenticatorBukkit
+main: ${project.groupId}.${project.artifactId}.bukkit.MinecraftAuthenticatorBukkit
 version: ${project.version}
 author: xXSchrandXx
 description: WSC-Minecraft-Authenticator
