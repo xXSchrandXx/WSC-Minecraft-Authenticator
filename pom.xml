@@ -39,25 +39,6 @@
 			<artifactId>bungeecord-api</artifactId>
 			<version>1.16-R0.4</version>
 		</dependency>
-		<!-- httpserver -->
-		<dependency>
-			<groupId>com.sun.net.httpserver</groupId>
-			<artifactId>http</artifactId>
-			<version>20070405</version>
-		</dependency>
-		<!-- bStats -->
-		<dependency>
-			<groupId>org.bstats</groupId>
-			<artifactId>bstats-bukkit</artifactId>
-			<version>3.0.0</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.bstats</groupId>
-			<artifactId>bstats-bungeecord</artifactId>
-			<version>3.0.0</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -150,11 +131,11 @@
 							<goal>upload</goal>
 						</goals>
 						<configuration>
-							<serverId>gamestrike</serverId>
+							<serverId>gamestrikeNew</serverId>
 							<fromDir>${project.build.directory}</fromDir>
 							<includes>apidocs/**, ${project.artifactId}-${project.version}.jar</includes>
 							<excludes>*javadoc.jar,*shaded.jar</excludes>
-							<url>dav://maven.gamestrike.de/docs</url>
+							<url>ftp://maven.gamestrike.de/docs</url>
 							<toDir>${project.artifactId}/${project.version}</toDir>
 							<optimize>false</optimize>
 						</configuration>
@@ -180,9 +161,9 @@
 
 	<distributionManagement>
 		<repository>
-			<id>gamestrike</id>
+			<id>gamestrikeNew</id>
 			<name>Gamestrike.de</name>
-			<url>dav://maven.gamestrike.de/mvn/</url>
+			<url>ftp://maven.gamestrike.de/mvn/</url>
 		</repository>
 	</distributionManagement>
 
