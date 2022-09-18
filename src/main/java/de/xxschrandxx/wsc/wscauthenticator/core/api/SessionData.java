@@ -1,4 +1,4 @@
-package de.xxschrandxx.wsc.wscauthenticator.core;
+package de.xxschrandxx.wsc.wscauthenticator.core.api;
 
 import java.util.Date;
 

@@ -3,12 +3,16 @@ main: ${project.groupId}.${project.artifactId}.bungee.MinecraftAuthenticatorBung
 version: ${project.version}
 author: xXSchrandXx
 description: WSC-Minecraft-Authenticator
-softdepend: []
+depends: [wscbridge-bungee]
 
 commands:
   login:
     description: Command to log in.
   logout:
     description: Command to log out.
-  wscauthenticatorbungee:
+  wscauthenticator:
     description: Command for WSC-Minecraft-Authenticator.
+    aliases:
+    - wscauthenticatorbungee
+    - wscauth
+    - wscauthbungee

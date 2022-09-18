@@ -1,27 +1,24 @@
 package de.xxschrandxx.wsc.wscauthenticator.bukkit.api.events;
 
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+
+import de.xxschrandxx.wsc.wscauthenticator.core.api.events.ILogoutCoreEvent;
+import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
 
 /**
  * Event called when a player has successfully logged in or registered.
  */
-public class LogoutEvent extends Event {
+public class LogoutEvent extends Event implements ILogoutCoreEvent {
 
-    private final Player player;
+    private final SenderBukkit sender;
 
-    public LogoutEvent(Player player) {
-        this.player = player;
+    public LogoutEvent(SenderBukkit sender) {
+        this.sender = sender;
     }
 
-    /**
-     * Gets the {@link Player} for the event.
-     * 
-     * @return The {@link Player}.
-     */
-    public Player get() {
-        return player;
+    public SenderBukkit get() {
+        return sender;
     }
 
     private static final HandlerList handlers = new HandlerList();

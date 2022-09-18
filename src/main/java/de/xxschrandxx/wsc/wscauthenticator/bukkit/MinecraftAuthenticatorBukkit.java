@@ -1,25 +1,48 @@
 package de.xxschrandxx.wsc.wscauthenticator.bukkit;
 
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Level;
 
-import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.api.MinecraftAuthenticatorBukkitAPI;
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.commands.*;
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.listeners.*;
-import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars.Configuration;
+import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars;
+import de.xxschrandxx.wsc.wscbridge.bukkit.MinecraftBridgeBukkit;
+import de.xxschrandxx.wsc.wscbridge.bukkit.api.ConfigurationBukkit;
+import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
+import de.xxschrandxx.wsc.wscbridge.core.IMinecraftBridgePlugin;
+import de.xxschrandxx.wsc.wscbridge.core.api.command.ISender;
 
-public class MinecraftAuthenticatorBukkit extends JavaPlugin {
-
+public class MinecraftAuthenticatorBukkit extends JavaPlugin implements IMinecraftBridgePlugin<MinecraftAuthenticatorBukkitAPI> {
     // start of api part
     private static MinecraftAuthenticatorBukkit instance;
     public static MinecraftAuthenticatorBukkit getInstance() {
         return instance;
     }
+
     private MinecraftAuthenticatorBukkitAPI api;
+
+    public void loadAPI(ISender<?> sender) {
+        String urlString = getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.url);
+        URL url;
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            getLogger().log(Level.INFO, "Could not load api, disabeling plugin!.", e);
+            return;
+        }
+
+        MinecraftBridgeBukkit wsc = MinecraftBridgeBukkit.getInstance();
+        this.api = new MinecraftAuthenticatorBukkitAPI(
+            url,
+            getLogger(),
+            wsc.getAPI()
+        );
+    }
+
     public MinecraftAuthenticatorBukkitAPI getAPI() {
         return this.api;
     }
@@ -30,32 +53,26 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        if (!reloadConfiguration()) {
+        // Load configuration
+        getLogger().log(Level.INFO, "Loading Configuration.");
+        SenderBukkit sender = new SenderBukkit(getServer().getConsoleSender(), getInstance());
+        if (!reloadConfiguration(sender)) {
             getLogger().log(Level.WARNING, "Could not load config.yml, disabeling plugin!");
             onDisable();
             return;
         }
 
-        // set api
-        try {
-            this.api = new MinecraftAuthenticatorBukkitAPI(
-                getConfiguration().getString(Configuration.URL),
-                getConfiguration().getString(Configuration.Key),
-                getConfiguration().getBoolean(Configuration.SessionsEnabled),
-                getConfiguration().getLong(Configuration.SessionLength),
-                getLogger()
-                );
-        }
-        catch (MalformedURLException e) {
-            e.printStackTrace();
-            return;
-        }
+        // Load api
+        getLogger().log(Level.INFO, "Loading API.");
+        loadAPI(sender);
 
         // register command
+        getLogger().log(Level.INFO, "Loading Commands.");
         getCommand("login").setExecutor(new LoginCommand());
         getCommand("logout").setExecutor(new LogoutCommand());
 
         // register listener
+        getLogger().log(Level.INFO, "Loading Listener.");
         getServer().getPluginManager().registerEvents(new MABListener(), getInstance());
         getServer().getPluginManager().registerEvents(new AuthenticationListener(), getInstance());
         getServer().getPluginManager().registerEvents(new BlockListener(), getInstance());
@@ -75,123 +92,28 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new PlayerListener17(), getInstance());
         }
     }
+
+
+    @Override
+    public void onDisable() {
+    }
     // end of plugin part
 
     // start config part
-    public FileConfiguration getConfiguration() {
-        return getInstance().getConfig();
+    public ConfigurationBukkit getConfiguration() {
+        return new ConfigurationBukkit(getInstance().getConfig());
     }
 
-    public boolean reloadConfiguration() {
+    public boolean reloadConfiguration(ISender<?> sender) {
         reloadConfig();
 
-        boolean error = false;
-
-        // start config data
-
-        // URL
-        if (checkConfiguration(Configuration.URL, Configuration.defaults.URL))
-            error = true;
-        // Key
-        if (checkConfiguration(Configuration.Key, Configuration.defaults.Key))
-            error = true;
-
-        // Sessions
-        // SessionsEnabled
-        if (checkConfiguration(Configuration.SessionsEnabled, Configuration.defaults.SessionsEnabled))
-            error = true;
-        // SessionLength
-        if (checkConfiguration(Configuration.SessionLength, Configuration.defaults.SessionLength))
-            error = true;
-
-        // LoginCommand
-        // LoginCommandOnlyPlayers
-        if (checkConfiguration(Configuration.LoginCommandOnlyPlayers, Configuration.defaults.LoginCommandOnlyPlayers))
-            error = true;
-        // LoginCommandUsage
-        if (checkConfiguration(Configuration.LoginCommandUsage, Configuration.defaults.LoginCommandUsage))
-            error = true;
-        // LoginCommandSuccess
-        if (checkConfiguration(Configuration.LoginCommandSuccess, Configuration.defaults.LoginCommandSuccess))
-            error = true;
-        // LoginCommandFailure
-        if (checkConfiguration(Configuration.LoginCommandFailure, Configuration.defaults.LoginCommandFailure))
-            error = true;
-        // LoginCommandAlreadyIn
-        if (checkConfiguration(Configuration.LoginCommandAlreadyIn, Configuration.defaults.LoginCommandAlreadyIn))
-            error = true;
-
-        // LogoutCommand
-        // LogoutCommandOnlyPlayers
-        if (checkConfiguration(Configuration.LogoutCommandOnlyPlayers, Configuration.defaults.LogoutCommandOnlyPlayers))
-            error = true;
-        // LogoutCommandAlreadyOut
-        if (checkConfiguration(Configuration.LogoutCommandAlreadyOut, Configuration.defaults.LogoutCommandAlreadyOut))
-            error = true;
-        // LogoutCommandSuccess
-        if (checkConfiguration(Configuration.LogoutCommandSuccess, Configuration.defaults.LogoutCommandSuccess))
-            error = true;
-
-        // LoginViaSession
-        if (checkConfiguration(Configuration.LoginViaSession, Configuration.defaults.LoginViaSession))
-            error = true;
-
-        // Protection
-        // AllowMessageReceive
-        if (checkConfiguration(Configuration.AllowMessageReceive, Configuration.defaults.AllowMessageReceive))
-            error = true;
-        // AllowMessageSend
-        if (checkConfiguration(Configuration.AllowMessageSend, Configuration.defaults.AllowMessageSend))
-            error = true;
-        // AllowMessageSendLocale
-        if (checkConfiguration(Configuration.AllowMessageSendLocale, Configuration.defaults.AllowMessageSendLocale))
-            error = true;
-        // AllowedCommands
-        if (checkConfiguration(Configuration.AllowedCommands, Configuration.defaults.AllowedCommands))
-            error = true;
-        // DenyCommandSendLocale
-        if (checkConfiguration(Configuration.DenyCommandSendLocale, Configuration.defaults.DenyCommandSendLocale))
-            error = true;
-        // AllowMovement
-        if (checkConfiguration(Configuration.AllowMovement, Configuration.defaults.AllowMovement))
-            error = true;
-
-
-        // Teleportation
-        Location defaultLocation = getServer().getWorlds().iterator().next().getSpawnLocation();
-        // TeleportUnauthedEnabled
-        if (checkConfiguration(Configuration.TeleportUnauthedEnabled, Configuration.defaults.TeleportUnauthedEnabled))
-            error = true;
-        // TeleportUnauthedLocation
-        if (checkConfiguration(Configuration.TeleportUnauthedLocation, defaultLocation))
-            error = true;
-        // TeleportAuthedEnabled
-        if (checkConfiguration(Configuration.TeleportAuthedEnabled, Configuration.defaults.TeleportAuthedEnabled))
-            error = true;
-        // TeleportAuthedLocation
-        if (checkConfiguration(Configuration.TeleportAuthedLocation, defaultLocation))
-            error = true;
-
-        // end config data
-
-        if (error) {
+        if (MinecraftAuthenticatorVars.startConfig(getConfiguration(), getLogger())) {
             if (!saveConfiguration()) {
                 return false;
             }
-            return reloadConfiguration();
+            return reloadConfiguration(sender);
         }
         return true;
-    }
-
-    public boolean checkConfiguration(String path, Object def) {
-        if (getConfiguration().get(path) == null) {
-            getLogger().log(Level.WARNING, path + " is not set. Resetting it.");
-            getConfiguration().set(path, def);
-            return true;
-        }
-        else {
-            return false;
-        }
     }
 
     public boolean saveConfiguration() {

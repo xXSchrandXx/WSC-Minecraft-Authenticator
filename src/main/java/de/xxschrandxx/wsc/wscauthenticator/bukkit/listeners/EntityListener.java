@@ -16,6 +16,7 @@ import org.bukkit.event.entity.ProjectileLaunchEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.MinecraftAuthenticatorBukkit;
+import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
 
 public class EntityListener implements Listener {
 
@@ -31,7 +32,8 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.getEntity().setFireTicks(0);
@@ -45,7 +47,8 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getDamager();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -57,7 +60,8 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getTarget();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setTarget(null);
@@ -70,7 +74,8 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -82,7 +87,8 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setAmount(0);
@@ -95,7 +101,8 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -109,7 +116,8 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) shooter;
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -121,7 +129,8 @@ public class EntityListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);

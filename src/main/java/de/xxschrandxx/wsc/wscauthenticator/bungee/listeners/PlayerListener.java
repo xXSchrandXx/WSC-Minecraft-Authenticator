@@ -2,6 +2,7 @@ package de.xxschrandxx.wsc.wscauthenticator.bungee.listeners;
 
 import de.xxschrandxx.wsc.wscauthenticator.bungee.MinecraftAuthenticatorBungee;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars.Configuration;
+import de.xxschrandxx.wsc.wscbridge.bungee.api.command.SenderBungee;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -34,7 +35,8 @@ public class PlayerListener implements Listener {
       if (event.getReason() == Reason.LOBBY_FALLBACK) {
         return;
       }
-      if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+      SenderBungee sender = new SenderBungee(event.getPlayer(), mab);
+      if (this.mab.getAPI().isAuthenticated(sender)) {
         return;
       }
       event.setCancelled(true);
@@ -55,7 +57,8 @@ public class PlayerListener implements Listener {
           return;
       }
       ProxiedPlayer player = (ProxiedPlayer) event.getSender();
-      if (this.mab.getAPI().isAuthenticated(player)) {
+      SenderBungee sender = new SenderBungee(player, mab);
+      if (this.mab.getAPI().isAuthenticated(sender)) {
           return;
       }
       player.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',
@@ -80,7 +83,8 @@ public class PlayerListener implements Listener {
           return;
       }
       ProxiedPlayer player = (ProxiedPlayer) event.getSender();
-      if (this.mab.getAPI().isAuthenticated(player)) {
+      SenderBungee sender = new SenderBungee(player, mab);
+      if (this.mab.getAPI().isAuthenticated(sender)) {
           return;
       }
       player.sendMessage(new TextComponent(ChatColor.translateAlternateColorCodes('&',
@@ -103,7 +107,8 @@ public class PlayerListener implements Listener {
       if (this.mab.getConfiguration().getBoolean(Configuration.AllowMessageReceive)) {
           return;
       }
-      if (this.mab.getAPI().isAuthenticated((ProxiedPlayer) event.getReceiver()))
+      SenderBungee sender = new SenderBungee((ProxiedPlayer) event.getReceiver(), mab);
+      if (this.mab.getAPI().isAuthenticated(sender))
       event.setCancelled(true);
     }
 }

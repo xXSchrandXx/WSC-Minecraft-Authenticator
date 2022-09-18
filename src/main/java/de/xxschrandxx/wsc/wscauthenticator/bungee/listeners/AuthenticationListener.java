@@ -8,6 +8,7 @@ import de.xxschrandxx.wsc.wscauthenticator.bungee.api.events.LoginEvent;
 import de.xxschrandxx.wsc.wscauthenticator.bungee.api.events.LogoutEvent;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars.Configuration;
 import net.md_5.bungee.api.config.ServerInfo;
+import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.event.ServerConnectEvent;
 import net.md_5.bungee.api.event.ServerConnectEvent.Reason;
 import net.md_5.bungee.api.plugin.Listener;
@@ -48,7 +49,8 @@ public class AuthenticationListener implements Listener {
         if (!this.mab.getConfiguration().getBoolean(Configuration.AuthenticationServerEnabled)) {
             return;
         }
-        ServerInfo on = event.get().getServer().getInfo();
+        ProxiedPlayer player = (ProxiedPlayer) event.get().getParent();
+        ServerInfo on = player.getServer().getInfo();
         String toName = this.mab.getConfiguration().getString(Configuration.AuthenticationServerName);
         if (on.getName().equals(toName)) {
             return;
@@ -58,11 +60,11 @@ public class AuthenticationListener implements Listener {
             this.mab.getLogger().log(Level.WARNING, "No serverinfo with \"" + toName + "\" found.");
             return;
         }
-        if (!to.canAccess(event.get())) {
-            this.mab.getLogger().log(Level.WARNING, "\"" + event.get().getName() + "\" cannot access \"" + toName + "\".");
+        if (!to.canAccess(player)) {
+            this.mab.getLogger().log(Level.WARNING, "\"" + player.getName() + "\" cannot access \"" + toName + "\".");
             return;
         }
-        event.get().connect(to, Reason.PLUGIN);
+        player.connect(to, Reason.PLUGIN);
     }
 
     @EventHandler
@@ -70,7 +72,8 @@ public class AuthenticationListener implements Listener {
         if (!this.mab.getConfiguration().getBoolean(Configuration.LobbyServerEnabled)) {
             return;
         }
-        ServerInfo on = event.get().getServer().getInfo();
+        ProxiedPlayer player = (ProxiedPlayer) event.get().getParent();
+        ServerInfo on = player.getServer().getInfo();
         List<String> toNames = this.mab.getConfiguration().getStringList(Configuration.LobbyServerList);
         if (toNames.contains(on.getName())) {
             return;
@@ -81,11 +84,11 @@ public class AuthenticationListener implements Listener {
                 this.mab.getLogger().log(Level.WARNING, "No serverinfo with \"" + toName + "\" found.");
                 continue;
             }
-            if (!to.canAccess(event.get())) {
-                this.mab.getLogger().log(Level.WARNING, "\"" + event.get().getName() + "\" cannot access \"" + toName + "\".");
+            if (!to.canAccess(player)) {
+                this.mab.getLogger().log(Level.WARNING, "\"" + player.getName() + "\" cannot access \"" + toName + "\".");
                 continue;
             }
-            event.get().connect(to, Reason.PLUGIN);
+            player.connect(to, Reason.PLUGIN);
             break;
         }
     }

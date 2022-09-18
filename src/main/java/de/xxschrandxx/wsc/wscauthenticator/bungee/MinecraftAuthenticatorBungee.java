@@ -3,25 +3,50 @@ package de.xxschrandxx.wsc.wscauthenticator.bungee;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Level;
 
 import de.xxschrandxx.wsc.wscauthenticator.bungee.api.MinecraftAuthenticatorBungeeAPI;
 import de.xxschrandxx.wsc.wscauthenticator.bungee.commands.*;
 import de.xxschrandxx.wsc.wscauthenticator.bungee.listeners.*;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars;
+import de.xxschrandxx.wsc.wscbridge.bungee.MinecraftBridgeBungee;
+import de.xxschrandxx.wsc.wscbridge.bungee.api.ConfigurationBungee;
+import de.xxschrandxx.wsc.wscbridge.bungee.api.command.SenderBungee;
+import de.xxschrandxx.wsc.wscbridge.core.IMinecraftBridgePlugin;
+import de.xxschrandxx.wsc.wscbridge.core.api.command.ISender;
 import net.md_5.bungee.api.plugin.Plugin;
-import net.md_5.bungee.config.Configuration;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 
-public class MinecraftAuthenticatorBungee extends Plugin {
+public class MinecraftAuthenticatorBungee extends Plugin implements IMinecraftBridgePlugin<MinecraftAuthenticatorBungeeAPI> {
 
     // start of api part
     private static MinecraftAuthenticatorBungee instance;
     public static MinecraftAuthenticatorBungee getInstance() {
         return instance;
     }
+
     private MinecraftAuthenticatorBungeeAPI api;
+
+    public void loadAPI(ISender<?> sender) {
+        String urlString = getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.url);
+        URL url;
+        try {
+            url = new URL(urlString);
+        } catch (MalformedURLException e) {
+            getLogger().log(Level.INFO, "Could not load api, disabeling plugin!.", e);
+            return;
+        }
+
+        MinecraftBridgeBungee wsc = MinecraftBridgeBungee.getInstance();
+        this.api = new MinecraftAuthenticatorBungeeAPI(
+            url,
+            getLogger(),
+            wsc.getAPI()
+        );
+    }
+
     public MinecraftAuthenticatorBungeeAPI getAPI() {
         return this.api;
     }
@@ -32,53 +57,51 @@ public class MinecraftAuthenticatorBungee extends Plugin {
     public void onEnable() {
         instance = this;
 
-        if (!reloadConfiguration()) {
+        // Load configuration
+        getLogger().log(Level.INFO, "Loading Configuration.");
+        SenderBungee sender = new SenderBungee(getProxy().getConsole(), getInstance());
+        if (!reloadConfiguration(sender)) {
             getLogger().log(Level.WARNING, "Could not load config.yml, disabeling plugin!");
             onDisable();
             return;
         }
 
-        // set api
-        try {
-            this.api = new MinecraftAuthenticatorBungeeAPI(
-                getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.URL),
-                getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.Key),
-                getConfiguration().getBoolean(MinecraftAuthenticatorVars.Configuration.SessionsEnabled),
-                getConfiguration().getLong(MinecraftAuthenticatorVars.Configuration.SessionLength),
-                getLogger()
-                );
-        }
-        catch (MalformedURLException e) {
-            e.printStackTrace();
-            return;
-        }
+        // Load api
+        getLogger().log(Level.INFO, "Loading API.");
+        loadAPI(sender);
 
         // register command
-        getProxy().getPluginManager().registerCommand(getInstance(), new LoginCommand());
-        getProxy().getPluginManager().registerCommand(getInstance(), new LogoutCommand());
+        getLogger().log(Level.INFO, "Loading Commands.");
+        getProxy().getPluginManager().registerCommand(getInstance(), new LoginCommand("login"));
+        getProxy().getPluginManager().registerCommand(getInstance(), new LogoutCommand("logout"));
 
         // register listener
+        getLogger().log(Level.INFO, "Loading Listener.");
         getProxy().getPluginManager().registerListener(getInstance(), new MABListener());
         getProxy().getPluginManager().registerListener(getInstance(), new AuthenticationListener());
         getProxy().getPluginManager().registerListener(getInstance(), new PlayerListener());
+    }
+
+    @Override
+    public void onDisable() {
     }
     // end of plugin part
 
     // start config part
     private File configFile = new File(getDataFolder(), "config.yml");
-    private Configuration config;
+    private ConfigurationBungee config;
 
-    public Configuration getConfiguration() {
+    public ConfigurationBungee getConfiguration() {
         return getInstance().config;
     }
 
-    public boolean reloadConfiguration() {
+    public boolean reloadConfiguration(ISender<?> sender) {
         if (!getDataFolder().exists()) {
             getDataFolder().mkdir();
         }
         if (configFile.exists()) {
             try {
-                config = ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile);
+                config = new ConfigurationBungee(ConfigurationProvider.getProvider(YamlConfiguration.class).load(configFile));
             }
             catch (IOException e) {
                 getLogger().log(Level.WARNING, "Could not load config.yml.", e);
@@ -93,120 +116,21 @@ public class MinecraftAuthenticatorBungee extends Plugin {
                 getLogger().log(Level.WARNING, "Could not create config.yml.", e);
                 return false;
             }
-            config = new Configuration();
+            config = new ConfigurationBungee();
         }
 
-        boolean error = false;
-
-        // start config data
-
-        // URL
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.URL, MinecraftAuthenticatorVars.Configuration.defaults.URL))
-            error = true;
-        // Key
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.Key, MinecraftAuthenticatorVars.Configuration.defaults.Key))
-            error = true;
-
-        // Sessions
-        // SessionsEnabled
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.SessionsEnabled, MinecraftAuthenticatorVars.Configuration.defaults.SessionsEnabled))
-            error = true;
-        // SessionLength
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.SessionLength, MinecraftAuthenticatorVars.Configuration.defaults.SessionLength))
-            error = true;
-
-        // LoginCommand
-        // LoginCommandOnlyPlayers
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LoginCommandOnlyPlayers, MinecraftAuthenticatorVars.Configuration.defaults.LoginCommandOnlyPlayers))
-            error = true;
-        // LoginCommandUsage
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LoginCommandUsage, MinecraftAuthenticatorVars.Configuration.defaults.LoginCommandUsage))
-            error = true;
-        // LoginCommandSuccess
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LoginCommandSuccess, MinecraftAuthenticatorVars.Configuration.defaults.LoginCommandSuccess))
-            error = true;
-        // LoginCommandFailure
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LoginCommandFailure, MinecraftAuthenticatorVars.Configuration.defaults.LoginCommandFailure))
-            error = true;
-        // LoginCommandAlreadyIn
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LoginCommandAlreadyIn, MinecraftAuthenticatorVars.Configuration.defaults.LoginCommandAlreadyIn))
-            error = true;
-
-        // LogoutCommand
-        // LogoutCommandOnlyPlayers
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LogoutCommandOnlyPlayers, MinecraftAuthenticatorVars.Configuration.defaults.LogoutCommandOnlyPlayers))
-            error = true;
-        // LogoutCommandAlreadyOut
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LogoutCommandAlreadyOut, MinecraftAuthenticatorVars.Configuration.defaults.LogoutCommandAlreadyOut))
-            error = true;
-        // LogoutCommandSuccess
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LogoutCommandSuccess, MinecraftAuthenticatorVars.Configuration.defaults.LogoutCommandSuccess))
-            error = true;
-
-        // LoginViaSession
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LoginViaSession, MinecraftAuthenticatorVars.Configuration.defaults.LoginViaSession))
-            error = true;
-
-        // Protection
-        // TODO
-        // AllowServerSwitch
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AllowServerSwitch, MinecraftAuthenticatorVars.Configuration.defaults.AllowServerSwitch))
-            error = true;
-        // AllowMessageSend
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AllowMessageSend, MinecraftAuthenticatorVars.Configuration.defaults.AllowMessageSend))
-            error = true;
-        // AllowMessageSendLocale
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AllowMessageSendLocale, MinecraftAuthenticatorVars.Configuration.defaults.AllowMessageSendLocale))
-            error = true;
-        // AllowedCommands
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AllowedCommands, MinecraftAuthenticatorVars.Configuration.defaults.AllowedCommands))
-            error = true;
-        // DenyCommandSendLocale
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.DenyCommandSendLocale, MinecraftAuthenticatorVars.Configuration.defaults.DenyCommandSendLocale))
-            error = true;
-        // AllowMessageReceive
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AllowMessageReceive, MinecraftAuthenticatorVars.Configuration.defaults.AllowMessageReceive))
-            error = true;
-
-        // Server
-        // AuthenticationServerEnabled
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AuthenticationServerEnabled, MinecraftAuthenticatorVars.Configuration.defaults.AuthenticationServerEnabled))
-            error = true;
-        // AuthenticationServerName
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.AuthenticationServerName, MinecraftAuthenticatorVars.Configuration.defaults.AuthenticationServerName))
-            error = true;
-        // LobbyServerEnabled
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LobbyServerEnabled, MinecraftAuthenticatorVars.Configuration.defaults.LobbyServerEnabled))
-            error = true;
-        // LobbyServerList
-        if (checkConfiguration(MinecraftAuthenticatorVars.Configuration.LobbyServerList, MinecraftAuthenticatorVars.Configuration.defaults.LobbyServerList))
-            error = true;
-
-        // end config data
-
-        if (error) {
+        if (MinecraftAuthenticatorVars.startConfig(getConfiguration(), getLogger())) {
             if (!saveConfiguration()) {
                 return false;
             }
-            return reloadConfiguration();
+            return reloadConfiguration(sender);
         }
         return true;
     }
 
-    public boolean checkConfiguration(String path, Object def) {
-        if (getConfiguration().get(path) == null) {
-            getLogger().log(Level.WARNING, path + " is not set. Resetting it.");
-            getConfiguration().set(path, def);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }
-
     public boolean saveConfiguration() {
         try {
-            ConfigurationProvider.getProvider(YamlConfiguration.class).save(config, configFile);
+            ConfigurationProvider.getProvider(YamlConfiguration.class).save(config.getConfiguration(), configFile);
         }
         catch (IOException e) {
             getLogger().log(Level.WARNING, "Could not save config.yml.", e);

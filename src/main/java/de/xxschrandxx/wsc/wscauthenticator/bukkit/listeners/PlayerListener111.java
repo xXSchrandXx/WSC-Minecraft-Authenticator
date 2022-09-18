@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityAirChangeEvent;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.MinecraftAuthenticatorBukkit;
+import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
 
 /**
  * Listener for 1.11 and upper
@@ -22,7 +23,8 @@ public class PlayerListener111 implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);

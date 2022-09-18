@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.MinecraftAuthenticatorBukkit;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars.Configuration;
+import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
 
 public class MABListener implements Listener {
     private final MinecraftAuthenticatorBukkit mab;
@@ -19,11 +20,12 @@ public class MABListener implements Listener {
         if (!this.mab.getConfiguration().getBoolean(Configuration.SessionsEnabled)) {
             return;
         }
-        if (!this.mab.getAPI().hasOpenSession(event.getPlayer(), event.getPlayer().getAddress().getAddress().getHostAddress())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (!this.mab.getAPI().hasOpenSession(sender, event.getPlayer().getAddress().getAddress().getHostAddress())) {
             return;
         }
-        this.mab.getAPI().setAuthenticated(event.getPlayer(), true);
-        this.mab.getAPI().removeSession(event.getPlayer());
+        this.mab.getAPI().setAuthenticated(sender, true);
+        this.mab.getAPI().removeSession(sender);
         event.getPlayer().sendMessage(ChatColor.translateAlternateColorCodes('&',
             this.mab.getConfiguration().getString(Configuration.LoginViaSession)
         ));
@@ -31,13 +33,14 @@ public class MABListener implements Listener {
 
     @EventHandler
     public void onQuit(PlayerQuitEvent event) {
-        if (!this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (!this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
-        this.mab.getAPI().setAuthenticated(event.getPlayer(), false);
+        this.mab.getAPI().setAuthenticated(sender, false);
         if (!this.mab.getConfiguration().getBoolean(Configuration.SessionsEnabled)) {
             return;
         }
-        this.mab.getAPI().addSession(event.getPlayer(), event.getPlayer().getAddress().getAddress().getHostAddress());
+        this.mab.getAPI().addSession(sender, event.getPlayer().getAddress().getAddress().getHostAddress());
     }
 }

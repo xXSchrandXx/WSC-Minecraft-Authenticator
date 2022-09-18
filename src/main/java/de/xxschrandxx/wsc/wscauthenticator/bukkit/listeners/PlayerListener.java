@@ -26,6 +26,7 @@ import org.bukkit.event.player.PlayerShearEntityEvent;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.MinecraftAuthenticatorBukkit;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars.Configuration;
+import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
 
 /**
  * Default listener
@@ -44,7 +45,8 @@ public class PlayerListener implements Listener {
             return;
         }
         for (Player player : event.getRecipients()) {
-            if (this.mab.getAPI().isAuthenticated(player)) {
+            SenderBukkit sender = new SenderBukkit(player, mab);
+            if (this.mab.getAPI().isAuthenticated(sender)) {
                 return;
             }
             event.getRecipients().remove(player);
@@ -62,8 +64,9 @@ public class PlayerListener implements Listener {
         }
 
         Player player = event.getPlayer();
+        SenderBukkit sender = new SenderBukkit(player, mab);
 
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -78,8 +81,8 @@ public class PlayerListener implements Listener {
         if (this.mab.getConfiguration().getStringList(Configuration.AllowedCommands).contains(cmd)) {
             return;
         }
-
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -107,7 +110,8 @@ public class PlayerListener implements Listener {
         }
 
         Player player = event.getPlayer();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
 
@@ -117,7 +121,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerInteract(PlayerInteractEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -125,7 +130,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -133,7 +139,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerInteractAtEntity(PlayerInteractAtEntityEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -145,7 +152,8 @@ public class PlayerListener implements Listener {
             return;
         }
         Player player = (Player) event.getEntity();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -153,7 +161,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerShear(PlayerShearEntityEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -161,7 +170,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerFish(PlayerFishEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -169,7 +179,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerBedEnter(PlayerBedEnterEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -177,7 +188,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerEditBook(PlayerEditBookEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -185,7 +197,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onSignChange(SignChangeEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -193,7 +206,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerDropItem(PlayerDropItemEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -201,7 +215,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerHeldItem(PlayerItemHeldEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -209,7 +224,8 @@ public class PlayerListener implements Listener {
 
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerConsumeItem(PlayerItemConsumeEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -221,8 +237,8 @@ public class PlayerListener implements Listener {
             return;
         }
         final Player player = (Player) event.getPlayer();
-
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
 
@@ -236,7 +252,8 @@ public class PlayerListener implements Listener {
             return;
         }
         Player player = (Player) event.getWhoClicked();
-        if (this.mab.getAPI().isAuthenticated(player)) {
+        SenderBukkit sender = new SenderBukkit(player, mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);

@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.MinecraftAuthenticatorBukkit;
+import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
 
 /**
  * Listener for 1.9 and upper
@@ -17,7 +18,8 @@ public class PlayerListener19 implements Listener {
     }
     @EventHandler(ignoreCancelled = true, priority = EventPriority.LOWEST)
     public void onPlayerSwapHandItems(PlayerSwapHandItemsEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);

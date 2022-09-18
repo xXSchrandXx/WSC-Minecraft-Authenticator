@@ -6,6 +6,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.MinecraftAuthenticatorBukkit;
+import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
 
 public class BlockListener implements Listener {
 
@@ -17,7 +18,8 @@ public class BlockListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockPlace(BlockPlaceEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);
@@ -25,7 +27,8 @@ public class BlockListener implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockBreak(BlockBreakEvent event) {
-        if (this.mab.getAPI().isAuthenticated(event.getPlayer())) {
+        SenderBukkit sender = new SenderBukkit(event.getPlayer(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);

@@ -5,7 +5,7 @@ author: xXSchrandXx
 description: WSC-Minecraft-Authenticator
 api-version: 1.13
 load: POSTWORLD
-softdepend: []
+depends: [wscbridge-bungee]
 
 commands:
   login:
@@ -14,3 +14,7 @@ commands:
     description: Command to log out.
   wscauthenticator:
     description: Command for WSC-Minecraft-Authenticator.
+    aliases:
+    - wscauthenticatorbukkit
+    - wscauth
+    - wscauthbukkit

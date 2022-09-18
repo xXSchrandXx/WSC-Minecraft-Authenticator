@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.MinecraftAuthenticatorBukkit;
+import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
 
 public class EntityListener112 implements Listener {
     private final MinecraftAuthenticatorBukkit mab;
@@ -17,7 +18,8 @@ public class EntityListener112 implements Listener {
         if (!(event.getEntity() instanceof Player)) {
             return;
         }
-        if (this.mab.getAPI().isAuthenticated((Player) event.getEntity())) {
+        SenderBukkit sender = new SenderBukkit((Player) event.getEntity(), mab);
+        if (this.mab.getAPI().isAuthenticated(sender)) {
             return;
         }
         event.setCancelled(true);

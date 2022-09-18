@@ -1,25 +1,21 @@
 package de.xxschrandxx.wsc.wscauthenticator.bungee.api.events;
 
-import net.md_5.bungee.api.connection.ProxiedPlayer;
+import de.xxschrandxx.wsc.wscauthenticator.core.api.events.ILoginCoreEvent;
+import de.xxschrandxx.wsc.wscbridge.bungee.api.command.SenderBungee;
 import net.md_5.bungee.api.plugin.Event;
 
 /**
  * Event called when a player has successfully logged in or registered.
  */
-public class LoginEvent extends Event {
+public class LoginEvent extends Event implements ILoginCoreEvent {
 
-    private final ProxiedPlayer player;
+    private final SenderBungee sender;
 
-    public LoginEvent(ProxiedPlayer player) {
-        this.player = player;
+    public LoginEvent(SenderBungee sender) {
+        this.sender = sender;
     }
 
-    /**
-     * Gets the {@link ProxiedPlayer} for the event.
-     * 
-     * @return The {@link ProxiedPlayer}.
-     */
-    public ProxiedPlayer get() {
-        return player;
+    public SenderBungee get() {
+        return sender;
     }
 }
