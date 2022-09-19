@@ -22,6 +22,17 @@ public class MinecraftAuthenticatorVars extends AbstractConfiguration {
         // SessionLength
         public static final String SessionLength = "sessions.Length";
 
+        // language.command.reload.config.start
+        public static final String LangCmdReloadConfigStart = "language.command.reload.config.start";
+        // language.command.reload.config.error
+        public static final String LangCmdReloadConfigError = "language.command.reload.config.error";
+        // language.command.reload.config.success
+        public static final String LangCmdReloadConfigSuccess = "language.command.reload.config.success";
+        // language.command.reload.api.start
+        public static final String LangCmdReloadAPIStart = "language.command.reload.api.start";
+        // language.command.reload.api.success
+        public static final String LangCmdReloadAPISuccess = "language.command.reload.api.success";
+
         // logincommand
         // LoginCommandOnlyPlayers
         public static final String LoginCommandOnlyPlayers = "language.command.login.OnlyPlayers";
@@ -97,6 +108,18 @@ public class MinecraftAuthenticatorVars extends AbstractConfiguration {
         public static final Boolean SessionsEnabled = false;
         // SessionLength
         public static final Integer SessionLength = 300000; // 5 Minutes
+
+        // language.command.reload.config.start
+        public static final String LangCmdReloadConfigStart = "&8[&6WSC-Authenticator&8]&7 Reloading configuration.";
+        // language.command.reload.config.error
+        public static final String LangCmdReloadConfigError = "&8[&6WSC-Authenticator&8]&e Reloading configuration failed.";
+        // language.command.reload.config.success
+        public static final String LangCmdReloadConfigSuccess = "&8[&6WSC-Authenticator&8]&7 Configuration reloaded successfully.";
+        // language.command.reload.api.start
+        public static final String LangCmdReloadAPIStart = "&8[&6WSC-Authenticator&8]&7 Reloading API.";
+        // language.command.reload.api.success
+        public static final String LangCmdReloadAPISuccess = "&8[&6WSC-Authenticator&8]&7 API reloaded successfully.";
+
         // logincommand
         // LoginCommandOnlyPlayers
         public static final String LoginCommandOnlyPlayers = "You have to be a player.";

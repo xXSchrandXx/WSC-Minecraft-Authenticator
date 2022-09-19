@@ -8,7 +8,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.api.MinecraftAuthenticatorBukkitAPI;
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.commands.*;
-import de.xxschrandxx.wsc.wscauthenticator.bukkit.listeners.*;
+import de.xxschrandxx.wsc.wscauthenticator.bukkit.listener.*;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars;
 import de.xxschrandxx.wsc.wscbridge.bukkit.MinecraftBridgeBukkit;
 import de.xxschrandxx.wsc.wscbridge.bukkit.api.ConfigurationBukkit;
@@ -73,6 +73,8 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin implements IMinecra
 
         // register listener
         getLogger().log(Level.INFO, "Loading Listener.");
+        getServer().getPluginManager().registerEvents(new WSCBridgeConfigReloadListenerBukkit(), getInstance());
+        getServer().getPluginManager().registerEvents(new WSCBridgePluginReloadListenerBukkit(), getInstance());
         getServer().getPluginManager().registerEvents(new MABListener(), getInstance());
         getServer().getPluginManager().registerEvents(new AuthenticationListener(), getInstance());
         getServer().getPluginManager().registerEvents(new BlockListener(), getInstance());

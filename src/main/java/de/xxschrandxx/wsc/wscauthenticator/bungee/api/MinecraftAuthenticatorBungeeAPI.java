@@ -11,8 +11,8 @@ import java.util.UUID;
 import java.util.logging.Logger;
 
 import de.xxschrandxx.wsc.wscauthenticator.bungee.MinecraftAuthenticatorBungee;
-import de.xxschrandxx.wsc.wscauthenticator.bungee.api.events.LoginEvent;
-import de.xxschrandxx.wsc.wscauthenticator.bungee.api.events.LogoutEvent;
+import de.xxschrandxx.wsc.wscauthenticator.bungee.api.event.LoginEvent;
+import de.xxschrandxx.wsc.wscauthenticator.bungee.api.event.LogoutEvent;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars;
 import de.xxschrandxx.wsc.wscauthenticator.core.api.IMinecraftAuthenticatorCoreAPI;
 import de.xxschrandxx.wsc.wscauthenticator.core.api.MinecraftAuthenticatorCoreAPI;

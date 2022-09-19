@@ -1,4 +1,4 @@
-package de.xxschrandxx.wsc.wscauthenticator.bungee.listeners;
+package de.xxschrandxx.wsc.wscauthenticator.bungee.listener;
 
 import de.xxschrandxx.wsc.wscauthenticator.bungee.MinecraftAuthenticatorBungee;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars.Configuration;

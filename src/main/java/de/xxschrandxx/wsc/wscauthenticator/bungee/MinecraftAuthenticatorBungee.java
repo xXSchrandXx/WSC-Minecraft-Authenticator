@@ -8,7 +8,7 @@ import java.util.logging.Level;
 
 import de.xxschrandxx.wsc.wscauthenticator.bungee.api.MinecraftAuthenticatorBungeeAPI;
 import de.xxschrandxx.wsc.wscauthenticator.bungee.commands.*;
-import de.xxschrandxx.wsc.wscauthenticator.bungee.listeners.*;
+import de.xxschrandxx.wsc.wscauthenticator.bungee.listener.*;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars;
 import de.xxschrandxx.wsc.wscbridge.bungee.MinecraftBridgeBungee;
 import de.xxschrandxx.wsc.wscbridge.bungee.api.ConfigurationBungee;
@@ -77,9 +77,12 @@ public class MinecraftAuthenticatorBungee extends Plugin implements IMinecraftBr
 
         // register listener
         getLogger().log(Level.INFO, "Loading Listener.");
+        getProxy().getPluginManager().registerListener(getInstance(), new WSCBridgeConfigReloadListenerBungee());
+        getProxy().getPluginManager().registerListener(getInstance(), new WSCBridgePluginReloadListenerBungee());
         getProxy().getPluginManager().registerListener(getInstance(), new MABListener());
         getProxy().getPluginManager().registerListener(getInstance(), new AuthenticationListener());
         getProxy().getPluginManager().registerListener(getInstance(), new PlayerListener());
+        getProxy().getPluginManager().registerListener(getInstance(), new AddModuleListenerBungee());
     }
 
     @Override

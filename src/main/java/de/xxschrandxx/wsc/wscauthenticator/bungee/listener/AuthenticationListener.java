@@ -1,11 +1,11 @@
-package de.xxschrandxx.wsc.wscauthenticator.bungee.listeners;
+package de.xxschrandxx.wsc.wscauthenticator.bungee.listener;
 
 import java.util.List;
 import java.util.logging.Level;
 
 import de.xxschrandxx.wsc.wscauthenticator.bungee.MinecraftAuthenticatorBungee;
-import de.xxschrandxx.wsc.wscauthenticator.bungee.api.events.LoginEvent;
-import de.xxschrandxx.wsc.wscauthenticator.bungee.api.events.LogoutEvent;
+import de.xxschrandxx.wsc.wscauthenticator.bungee.api.event.LoginEvent;
+import de.xxschrandxx.wsc.wscauthenticator.bungee.api.event.LogoutEvent;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars.Configuration;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;

@@ -1,4 +1,4 @@
-package de.xxschrandxx.wsc.wscauthenticator.bukkit.listeners;
+package de.xxschrandxx.wsc.wscauthenticator.bukkit.listener;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -11,8 +11,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.MinecraftAuthenticatorBukkit;
-import de.xxschrandxx.wsc.wscauthenticator.bukkit.api.events.LoginEvent;
-import de.xxschrandxx.wsc.wscauthenticator.bukkit.api.events.LogoutEvent;
+import de.xxschrandxx.wsc.wscauthenticator.bukkit.api.event.LoginEvent;
+import de.xxschrandxx.wsc.wscauthenticator.bukkit.api.event.LogoutEvent;
 import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars.Configuration;
 import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
 

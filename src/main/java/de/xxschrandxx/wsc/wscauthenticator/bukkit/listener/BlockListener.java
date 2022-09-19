@@ -1,4 +1,4 @@
-package de.xxschrandxx.wsc.wscauthenticator.bukkit.listeners;
+package de.xxschrandxx.wsc.wscauthenticator.bukkit.listener;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
