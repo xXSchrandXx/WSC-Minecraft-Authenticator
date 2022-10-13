@@ -19,7 +19,6 @@ import de.xxschrandxx.wsc.wscauthenticator.core.api.MinecraftAuthenticatorCoreAP
 import de.xxschrandxx.wsc.wscauthenticator.core.api.SessionData;
 import de.xxschrandxx.wsc.wscbridge.bukkit.api.MinecraftBridgeBukkitAPI;
 import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
-import de.xxschrandxx.wsc.wscbridge.core.api.MinecraftBridgeCoreAPI;
 import de.xxschrandxx.wsc.wscbridge.core.api.Response;
 import de.xxschrandxx.wsc.wscbridge.core.api.command.ISender;
 
@@ -27,8 +26,8 @@ public class MinecraftAuthenticatorBukkitAPI extends MinecraftBridgeBukkitAPI im
 
     protected final URL url;
 
-    public MinecraftAuthenticatorBukkitAPI(URL url, Logger logger, MinecraftBridgeCoreAPI api) {
-        super(api.getID(), api.getAuth(), logger, api.isDebugModeEnabled());
+    public MinecraftAuthenticatorBukkitAPI(URL url, Logger logger, MinecraftBridgeBukkitAPI api) {
+        super(api, logger);
         this.url = url;
     }
 

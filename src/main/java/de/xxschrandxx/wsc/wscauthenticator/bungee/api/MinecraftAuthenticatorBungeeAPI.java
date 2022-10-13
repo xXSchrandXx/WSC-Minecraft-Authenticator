@@ -19,7 +19,6 @@ import de.xxschrandxx.wsc.wscauthenticator.core.api.MinecraftAuthenticatorCoreAP
 import de.xxschrandxx.wsc.wscauthenticator.core.api.SessionData;
 import de.xxschrandxx.wsc.wscbridge.bungee.api.MinecraftBridgeBungeeAPI;
 import de.xxschrandxx.wsc.wscbridge.bungee.api.command.SenderBungee;
-import de.xxschrandxx.wsc.wscbridge.core.api.MinecraftBridgeCoreAPI;
 import de.xxschrandxx.wsc.wscbridge.core.api.Response;
 import de.xxschrandxx.wsc.wscbridge.core.api.command.ISender;
 
@@ -27,8 +26,8 @@ public class MinecraftAuthenticatorBungeeAPI extends MinecraftBridgeBungeeAPI im
 
     protected final URL url;
 
-    public MinecraftAuthenticatorBungeeAPI(URL url, Logger logger, MinecraftBridgeCoreAPI api) {
-        super(api.getID(), api.getAuth(), logger, api.isDebugModeEnabled());
+    public MinecraftAuthenticatorBungeeAPI(URL url, Logger logger, MinecraftBridgeBungeeAPI api) {
+        super(api, logger);
         this.url = url;
     }
 
