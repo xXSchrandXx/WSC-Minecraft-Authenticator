@@ -18,6 +18,10 @@ import de.xxschrandxx.wsc.wscbridge.core.api.command.ISender;
 
 public class MinecraftAuthenticatorBukkit extends JavaPlugin implements IMinecraftBridgePlugin<MinecraftAuthenticatorBukkitAPI> {
     // start of api part
+    public String getInfo() {
+        return null;
+    }
+
     private static MinecraftAuthenticatorBukkit instance;
     public static MinecraftAuthenticatorBukkit getInstance() {
         return instance;

@@ -22,6 +22,10 @@ import net.md_5.bungee.config.YamlConfiguration;
 public class MinecraftAuthenticatorBungee extends Plugin implements IMinecraftBridgePlugin<MinecraftAuthenticatorBungeeAPI> {
 
     // start of api part
+    public String getInfo() {
+        return null;
+    }
+
     private static MinecraftAuthenticatorBungee instance;
     public static MinecraftAuthenticatorBungee getInstance() {
         return instance;
