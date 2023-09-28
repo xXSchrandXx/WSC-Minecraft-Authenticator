@@ -149,7 +149,7 @@ public class MinecraftAuthenticatorVars extends AbstractConfiguration {
         // AllowMessageSendLocale
         public static final String AllowMessageSendLocale = "&cYou are not allowed to send messages.";
         // AllowedCommands
-        public static final List<String> AllowedCommands = Arrays.asList("/login");
+        public static final List<String> AllowedCommands = Arrays.asList("/login", "/wsclinker");
         // DenyCommandSendLocale
         public static final String DenyCommandSendLocale = "&cYou are not allowed to use commands.";
         // AllowMovement
