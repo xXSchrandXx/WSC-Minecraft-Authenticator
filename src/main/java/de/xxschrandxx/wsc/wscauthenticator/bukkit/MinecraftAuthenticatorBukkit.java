@@ -1,6 +1,7 @@
 package de.xxschrandxx.wsc.wscauthenticator.bukkit;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.logging.Level;
 
@@ -33,7 +34,7 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin implements IMinecra
         String urlString = getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.url);
         URL url;
         try {
-            url = new URL(urlString);
+            url = URI.create(urlString).toURL();
         } catch (MalformedURLException e) {
             getLogger().log(Level.INFO, "Could not load api, disabeling plugin!.", e);
             return;

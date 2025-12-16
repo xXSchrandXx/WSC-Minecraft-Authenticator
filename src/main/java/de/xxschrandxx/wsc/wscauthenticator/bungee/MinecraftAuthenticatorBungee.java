@@ -3,6 +3,7 @@ package de.xxschrandxx.wsc.wscauthenticator.bungee;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.logging.Level;
 
@@ -37,7 +38,7 @@ public class MinecraftAuthenticatorBungee extends Plugin implements IMinecraftBr
         String urlString = getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.url);
         URL url;
         try {
-            url = new URL(urlString);
+            url = URI.create(urlString).toURL();
         } catch (MalformedURLException e) {
             getLogger().log(Level.INFO, "Could not load api, disabeling plugin!.", e);
             return;
