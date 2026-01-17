@@ -2,13 +2,13 @@ package de.xxschrandxx.wsc.wscauthenticator.core;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
+import de.xxschrandxx.wsc.wscbridge.core.api.IBridgeLogger;
 import de.xxschrandxx.wsc.wscbridge.core.api.configuration.AbstractConfiguration;
 import de.xxschrandxx.wsc.wscbridge.core.api.configuration.IConfiguration;
 
 public class MinecraftAuthenticatorVars extends AbstractConfiguration {
-    public static boolean startConfig(IConfiguration<?> configuration, Logger logger) {
+    public static boolean startConfig(IConfiguration<?> configuration, IBridgeLogger logger) {
         return startConfig(configuration, Configuration.class, defaults.class, logger);
     }
     public static final class Configuration {

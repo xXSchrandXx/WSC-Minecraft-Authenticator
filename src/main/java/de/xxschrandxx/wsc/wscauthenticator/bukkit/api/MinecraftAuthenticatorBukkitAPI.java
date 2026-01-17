@@ -8,7 +8,6 @@ import java.net.UnknownServiceException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.MinecraftAuthenticatorBukkit;
 import de.xxschrandxx.wsc.wscauthenticator.bukkit.api.event.LoginEvent;
@@ -19,6 +18,7 @@ import de.xxschrandxx.wsc.wscauthenticator.core.api.MinecraftAuthenticatorCoreAP
 import de.xxschrandxx.wsc.wscauthenticator.core.api.SessionData;
 import de.xxschrandxx.wsc.wscbridge.bukkit.api.MinecraftBridgeBukkitAPI;
 import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
+import de.xxschrandxx.wsc.wscbridge.core.api.MinecraftBridgeLogger;
 import de.xxschrandxx.wsc.wscbridge.core.api.Response;
 import de.xxschrandxx.wsc.wscbridge.core.api.command.ISender;
 
@@ -26,7 +26,7 @@ public class MinecraftAuthenticatorBukkitAPI extends MinecraftBridgeBukkitAPI im
 
     protected final URL url;
 
-    public MinecraftAuthenticatorBukkitAPI(URL url, Logger logger, MinecraftBridgeBukkitAPI api) {
+    public MinecraftAuthenticatorBukkitAPI(URL url, MinecraftBridgeLogger logger, MinecraftBridgeBukkitAPI api) {
         super(api, logger);
         this.url = url;
     }

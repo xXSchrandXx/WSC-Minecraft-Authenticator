@@ -14,10 +14,11 @@ import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars;
 import de.xxschrandxx.wsc.wscbridge.bukkit.MinecraftBridgeBukkit;
 import de.xxschrandxx.wsc.wscbridge.bukkit.api.ConfigurationBukkit;
 import de.xxschrandxx.wsc.wscbridge.bukkit.api.command.SenderBukkit;
-import de.xxschrandxx.wsc.wscbridge.core.IMinecraftBridgePlugin;
+import de.xxschrandxx.wsc.wscbridge.core.IBridgePlugin;
+import de.xxschrandxx.wsc.wscbridge.core.api.MinecraftBridgeLogger;
 import de.xxschrandxx.wsc.wscbridge.core.api.command.ISender;
 
-public class MinecraftAuthenticatorBukkit extends JavaPlugin implements IMinecraftBridgePlugin<MinecraftAuthenticatorBukkitAPI> {
+public class MinecraftAuthenticatorBukkit extends JavaPlugin implements IBridgePlugin<MinecraftAuthenticatorBukkitAPI> {
     // start of api part
     public String getInfo() {
         return null;
@@ -29,6 +30,13 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin implements IMinecra
     }
 
     private MinecraftAuthenticatorBukkitAPI api;
+
+    private MinecraftBridgeLogger bridgeLogger;
+
+    @Override
+    public MinecraftBridgeLogger getBridgeLogger() {
+        return bridgeLogger;
+    }
 
     public void loadAPI(ISender<?> sender) {
         String urlString = getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.url);
@@ -43,7 +51,7 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin implements IMinecra
         MinecraftBridgeBukkit wsc = MinecraftBridgeBukkit.getInstance();
         this.api = new MinecraftAuthenticatorBukkitAPI(
             url,
-            getLogger(),
+            getBridgeLogger(),
             wsc.getAPI()
         );
     }
@@ -57,6 +65,7 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin implements IMinecra
     @Override
     public void onEnable() {
         instance = this;
+        bridgeLogger = new MinecraftBridgeLogger(getLogger());
 
         // Load configuration
         getLogger().log(Level.INFO, "Loading Configuration.");
@@ -114,7 +123,7 @@ public class MinecraftAuthenticatorBukkit extends JavaPlugin implements IMinecra
     public boolean reloadConfiguration(ISender<?> sender) {
         reloadConfig();
 
-        if (MinecraftAuthenticatorVars.startConfig(getConfiguration(), getLogger())) {
+        if (MinecraftAuthenticatorVars.startConfig(getConfiguration(), getBridgeLogger())) {
             if (!saveConfiguration()) {
                 return false;
             }

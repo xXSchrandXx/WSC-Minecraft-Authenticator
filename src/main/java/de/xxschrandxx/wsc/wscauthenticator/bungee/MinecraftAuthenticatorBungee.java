@@ -14,13 +14,14 @@ import de.xxschrandxx.wsc.wscauthenticator.core.MinecraftAuthenticatorVars;
 import de.xxschrandxx.wsc.wscbridge.bungee.MinecraftBridgeBungee;
 import de.xxschrandxx.wsc.wscbridge.bungee.api.ConfigurationBungee;
 import de.xxschrandxx.wsc.wscbridge.bungee.api.command.SenderBungee;
-import de.xxschrandxx.wsc.wscbridge.core.IMinecraftBridgePlugin;
+import de.xxschrandxx.wsc.wscbridge.core.IBridgePlugin;
+import de.xxschrandxx.wsc.wscbridge.core.api.MinecraftBridgeLogger;
 import de.xxschrandxx.wsc.wscbridge.core.api.command.ISender;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.config.ConfigurationProvider;
 import net.md_5.bungee.config.YamlConfiguration;
 
-public class MinecraftAuthenticatorBungee extends Plugin implements IMinecraftBridgePlugin<MinecraftAuthenticatorBungeeAPI> {
+public class MinecraftAuthenticatorBungee extends Plugin implements IBridgePlugin<MinecraftAuthenticatorBungeeAPI> {
 
     // start of api part
     public String getInfo() {
@@ -33,6 +34,13 @@ public class MinecraftAuthenticatorBungee extends Plugin implements IMinecraftBr
     }
 
     private MinecraftAuthenticatorBungeeAPI api;
+
+    private MinecraftBridgeLogger bridgeLogger;
+
+    @Override
+    public MinecraftBridgeLogger getBridgeLogger() {
+        return bridgeLogger;
+    }
 
     public void loadAPI(ISender<?> sender) {
         String urlString = getConfiguration().getString(MinecraftAuthenticatorVars.Configuration.url);
@@ -47,7 +55,7 @@ public class MinecraftAuthenticatorBungee extends Plugin implements IMinecraftBr
         MinecraftBridgeBungee wsc = MinecraftBridgeBungee.getInstance();
         this.api = new MinecraftAuthenticatorBungeeAPI(
             url,
-            getLogger(),
+            getBridgeLogger(),
             wsc.getAPI()
         );
     }
@@ -61,6 +69,7 @@ public class MinecraftAuthenticatorBungee extends Plugin implements IMinecraftBr
     @Override
     public void onEnable() {
         instance = this;
+        bridgeLogger = new MinecraftBridgeLogger(getLogger());
 
         // Load configuration
         getLogger().log(Level.INFO, "Loading Configuration.");
@@ -127,7 +136,7 @@ public class MinecraftAuthenticatorBungee extends Plugin implements IMinecraftBr
             config = new ConfigurationBungee();
         }
 
-        if (MinecraftAuthenticatorVars.startConfig(getConfiguration(), getLogger())) {
+        if (MinecraftAuthenticatorVars.startConfig(getConfiguration(), getBridgeLogger())) {
             if (!saveConfiguration()) {
                 return false;
             }

@@ -6,7 +6,7 @@
 
 	<groupId>de.xxschrandxx.wsc</groupId>
 	<artifactId>wscauthenticator</artifactId>
-	<version>1.0.3</version>
+	<version>1.0.4</version>
 
 	<name>WSC-Minecraft-Authenticator</name>
 	<url>https://github.com/xXSchrandXx/WSC-Minecraft-Authenticator</url>
@@ -22,12 +22,6 @@
 		<repository>
 			<id>spigot-bungee-repo</id>
 			<url>https://hub.spigotmc.org/nexus/content/groups/public/</url>
-		</repository>
-		<!-- Librelogin Repo-->
-		<repository>
-			<id>kyngs-repo-public</id>
-			<name>Repository</name>
-			<url>https://repo.kyngs.xyz/public</url>
 		</repository>
 	</repositories>
 
@@ -45,17 +39,11 @@
 			<artifactId>bungeecord-api</artifactId>
 			<version>1.21-R0.3-SNAPSHOT</version>
 		</dependency>
-		<!-- LibreLogin Dep-->
-		<dependency>
-			<groupId>xyz.kyngs.librelogin</groupId>
-			<artifactId>API</artifactId>
-			<version>0.24.0</version>
-		</dependency>
 		<!-- WSC-Minecraft-Bridge -->
 		<dependency>
 			<groupId>de.xxschrandxx.wsc</groupId>
 			<artifactId>wscbridge</artifactId>
-			<version>2.0.5</version>
+			<version>3.0.0</version>
 		</dependency>
 	</dependencies>
 

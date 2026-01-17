@@ -5,11 +5,11 @@ import java.net.MalformedURLException;
 import java.net.SocketTimeoutException;
 import java.net.UnknownServiceException;
 
-import de.xxschrandxx.wsc.wscbridge.core.api.IMinecraftBridgeCoreAPI;
+import de.xxschrandxx.wsc.wscbridge.core.api.IBridgeCoreAPI;
 import de.xxschrandxx.wsc.wscbridge.core.api.Response;
 import de.xxschrandxx.wsc.wscbridge.core.api.command.ISender;
 
-public interface IMinecraftAuthenticatorCoreAPI extends IMinecraftBridgeCoreAPI {
+public interface IMinecraftAuthenticatorCoreAPI extends IBridgeCoreAPI {
 
     public Response<String, Object> checkPassword(ISender<?> sender, String password) throws SocketTimeoutException, MalformedURLException, UnknownServiceException, IOException;
 

@@ -8,7 +8,6 @@ import java.net.UnknownServiceException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 import de.xxschrandxx.wsc.wscauthenticator.bungee.MinecraftAuthenticatorBungee;
 import de.xxschrandxx.wsc.wscauthenticator.bungee.api.event.LoginEvent;
@@ -19,6 +18,7 @@ import de.xxschrandxx.wsc.wscauthenticator.core.api.MinecraftAuthenticatorCoreAP
 import de.xxschrandxx.wsc.wscauthenticator.core.api.SessionData;
 import de.xxschrandxx.wsc.wscbridge.bungee.api.MinecraftBridgeBungeeAPI;
 import de.xxschrandxx.wsc.wscbridge.bungee.api.command.SenderBungee;
+import de.xxschrandxx.wsc.wscbridge.core.api.MinecraftBridgeLogger;
 import de.xxschrandxx.wsc.wscbridge.core.api.Response;
 import de.xxschrandxx.wsc.wscbridge.core.api.command.ISender;
 
@@ -26,7 +26,7 @@ public class MinecraftAuthenticatorBungeeAPI extends MinecraftBridgeBungeeAPI im
 
     protected final URL url;
 
-    public MinecraftAuthenticatorBungeeAPI(URL url, Logger logger, MinecraftBridgeBungeeAPI api) {
+    public MinecraftAuthenticatorBungeeAPI(URL url, MinecraftBridgeLogger logger, MinecraftBridgeBungeeAPI api) {
         super(api, logger);
         this.url = url;
     }
